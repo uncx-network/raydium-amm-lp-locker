@@ -52,6 +52,13 @@ Anchor idl generation does not work nicely with rust compilation features, since
 
 We are using a custom fork of anchor with a small optimization made to reduce stack space usage during try_accounts deserialization of structs marked with `#[derive(Accounts)]`
 
-### Verifiable Executable Deployed Program Hash
+### Verifiable Executable Deployed Program
 
 `Hash : 60838187b2c2b92fc6094bba1dcc2a9607ca40f7fb0fdb9e7011e08fa0c863e9`
+
+[OtterSec verification link](https://verify.osec.io/status/GsSCS3vPWrtJ5Y9aEVVT65fmrex5P5RGHXdZvsdbWgfo)
+
+### Deployed Program Address (Mainnet-beta)
+
+[GsSCS3vPWrtJ5Y9aEVVT65fmrex5P5RGHXdZvsdbWgfo](https://explorer.solana.com/address/GsSCS3vPWrtJ5Y9aEVVT65fmrex5P5RGHXdZvsdbWgfo)
+
