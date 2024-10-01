@@ -1,0 +1,12 @@
+# [env]
+# RUST_MIN_STACK = "8192000"
+
+[alias]
+b = "build-sbf"
+f = "fmt --check"
+ff = "fmt"
+l = "clippy --features=testing"
+lf = "clippy --features=testing --fix"
+t = "test --manifest-path ./Cargo.toml --features test-bpf --target x86_64-apple-darwin --features=testing"
+r = "run"
+c = "build"

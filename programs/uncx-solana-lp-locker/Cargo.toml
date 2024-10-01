@@ -1,0 +1,62 @@
+[package]
+name = "uncx-solana-lp-locker"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "uncx_solana_lp_locker"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = ["mainnet"]
+mainnet = ["precise"]
+devnet = []
+testing = ["mainnet", "anchor-debug", "client"]
+client = []
+precise = []
+zero-copy = []
+anchor-debug = ["anchor-lang/anchor-debug"]
+normal-fp = []
+cpi-event = ["anchor-lang/event-cpi"]
+#anchor just requires it to be present in 0.30.0 , DO NOT BUNDLE IT with anchor-lang
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+
+[dependencies]
+solana-program = { workspace = true }
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+anchor-spl = { workspace = true }
+uint = "0.9.5"
+arrayref = "0.3.7"
+bytemuck = { version = "^1.7.2", features = ["derive", "min_const_generics"] }
+safe-transmute = "0.11.2"
+once_cell = "1.19.0"
+type-layout = "0.2.0"
+fixed = "=1.27.0"
+mpl-token-metadata = "4.1.2"
+
+[dev-dependencies]
+async-trait = "0.1.52"
+base64 = "0.13.0"
+log = "0.4.14"
+env_logger = "0.9.0"
+itertools = "0.10.3"
+lazy_static = "1.4.0"
+solana-client = { workspace = true }
+solana-sdk = { workspace = true }
+rand = "0.8.4"
+solana-program-test = { workspace = true }
+solana-logger = { workspace = true }
+spl-token = { version = "^3.5.0", features = ["no-entrypoint"] }
+spl-associated-token-account = { workspace = true, features = [
+    "no-entrypoint",
+] }
+anyhow = "*"
+
+solana-account-decoder = "1.18.17"
+serde_json = "1.0"

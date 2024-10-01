@@ -1,0 +1,3212 @@
+{
+  "address": "",
+  "metadata": {
+    "name": "uncx_solana_lp_locker",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_migrator",
+      "discriminator": [
+        211,
+        233,
+        147,
+        209,
+        88,
+        105,
+        2,
+        76
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "Funding Wallet"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "migrator_marker_acc",
+          "docs": [
+            "new_migrator_address_pda will be a signer"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  77,
+                  73,
+                  71,
+                  82,
+                  65,
+                  84,
+                  79,
+                  82
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "new_migrator_address_pda"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Native System Program"
+          ],
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_migrator_address_pda",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "add_whitelist",
+      "discriminator": [
+        215,
+        46,
+        143,
+        176,
+        108,
+        113,
+        24,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "Funding Wallet"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_whitelist_pda_acc",
+          "docs": [
+            "user to whitelist"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  45,
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "whitelist_address"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Native System Program"
+          ],
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "whitelist_address",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "create_and_lock_lp",
+      "discriminator": [
+        93,
+        126,
+        175,
+        112,
+        237,
+        29,
+        195,
+        73
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "Payer"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "blacklisted_countries",
+          "docs": [
+            "Core Accounts"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  108,
+                  97,
+                  99,
+                  107,
+                  108,
+                  105,
+                  115,
+                  116,
+                  101,
+                  100,
+                  95,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116,
+                  114,
+                  105,
+                  101,
+                  115
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "uncx_lock_lp_vault_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  112,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "amm_info_acc"
+              }
+            ]
+          }
+        },
+        {
+          "name": "uncx_authority_acc",
+          "docs": [
+            "CHECK : `its a pda account, checked via its seeds`"
+          ]
+        },
+        {
+          "name": "global_lp_marker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  108,
+                  112,
+                  95,
+                  116,
+                  114,
+                  97,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "amm_info_acc"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config_account.config.next_locker_unique_id",
+                "account": "ConfigurationAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lp_mint_acc"
+        },
+        {
+          "name": "amm_info_acc",
+          "docs": [
+            "areas its values are checked if the length wasnt sufficient or wrong the zero-copy",
+            "deserialization in other places its used would error out."
+          ]
+        },
+        {
+          "name": "user_lp_token_acc",
+          "docs": [
+            "User Specific Accounts"
+          ],
+          "writable": true
+        },
+        {
+          "name": "user_lp_token_authority_acc",
+          "docs": [
+            "IX CreateAndlockLp Acc # 9"
+          ],
+          "signer": true,
+          "optional": true
+        },
+        {
+          "name": "referral_wallet",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "referral_token_account",
+          "docs": [
+            "*** #8",
+            "Used just for balance check i.e referral account balance >",
+            "config_account.config.referral_min_balance"
+          ],
+          "optional": true
+        },
+        {
+          "name": "user_secondary_token_account",
+          "docs": [
+            "IX CreateAndlockLp Acc # 15",
+            "*** #9"
+          ],
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "referral_secondary_token_account",
+          "docs": [
+            "IX CreateAndlockLp Acc # 16",
+            "referral secondary token account to credit the referral fees in"
+          ],
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "user_secondary_token_authority_acc",
+          "docs": [
+            "IX CreateAndlockLp Acc # 17",
+            "*** 11",
+            "user secondary token acc authority"
+          ],
+          "signer": true,
+          "optional": true
+        },
+        {
+          "name": "secondary_token_mint",
+          "docs": [
+            "IX CreateAndlockLp Acc # 18",
+            "*** 13",
+            "if the user opts for burning secondary specified token in the config acc, the mint for that",
+            "token"
+          ],
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "dev_lp_token_account",
+          "writable": true,
+          "optional": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "dev_wallet"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_mint_acc"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "dev_wallet",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "user_whitelist_pda_acc",
+          "docs": [
+            "if the locker is a whitelisted entity, this accounts existence is his proof of whitelist"
+          ],
+          "optional": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  45,
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "whitelist_address"
+              }
+            ]
+          }
+        },
+        {
+          "name": "whitelist_address",
+          "docs": [
+            "IX CreateAndlockLp Acc # 21",
+            "whitelisted account which signs the tx."
+          ],
+          "signer": true,
+          "optional": true
+        },
+        {
+          "name": "user_info_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "arg",
+                "path": "amm_info_acc_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_info_lp_tracker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  112,
+                  95,
+                  116,
+                  114,
+                  97,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "arg",
+                "path": "amm_info_acc_key"
+              },
+              {
+                "kind": "account",
+                "path": "user_info_acc"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Utility Programs"
+          ],
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "optional": true,
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "lock_owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "amm_info_acc_key",
+          "type": "pubkey"
+        },
+        {
+          "name": "referral_wallet_key",
+          "type": {
+            "option": "pubkey"
+          }
+        },
+        {
+          "name": "lock_amount",
+          "type": "u64"
+        },
+        {
+          "name": "unlock_date",
+          "type": "i64"
+        },
+        {
+          "name": "country_code",
+          "type": "u8"
+        },
+        {
+          "name": "fee_payment_method",
+          "type": {
+            "defined": {
+              "name": "FeePaymentMethod"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "increment_lock_lp",
+      "discriminator": [
+        65,
+        111,
+        158,
+        103,
+        155,
+        17,
+        241,
+        100
+      ],
+      "accounts": [
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dev_lp_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "config_account.config.dev_addr",
+                "account": "ConfigurationAccount"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.lp_mint",
+                "account": "TokenLock"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "uncx_lock_lp_vault_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  112,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "increment_lock_lp_entity_lp_token_acc",
+          "writable": true
+        },
+        {
+          "name": "increment_lock_lp_entity_authority_acc",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "locker_id",
+          "type": "u64"
+        },
+        {
+          "name": "increase_lp_amount_by",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "Funding Wallet"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "blacklisted_countries",
+          "docs": [
+            "Country Black List Acc PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  108,
+                  97,
+                  99,
+                  107,
+                  108,
+                  105,
+                  115,
+                  116,
+                  101,
+                  100,
+                  95,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116,
+                  114,
+                  105,
+                  101,
+                  115
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "initial_admin",
+          "signer": true,
+          "address": "i3h765SS3M2KvWkdniVWaMjexJQb1EN6WkbqiuepDvE"
+        },
+        {
+          "name": "uncx_authority_acc",
+          "docs": [
+            "CHECK : `its a pda account, checked via its seeds`"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "initial_config",
+          "type": {
+            "defined": {
+              "name": "Config"
+            }
+          }
+        },
+        {
+          "name": "initial_black_listed_countries",
+          "type": {
+            "array": [
+              "u8",
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "migrate_lp",
+      "discriminator": [
+        27,
+        223,
+        110,
+        58,
+        196,
+        168,
+        198,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "whitelisted_migrator_authority",
+          "docs": [
+            "Migrator Accounts"
+          ],
+          "signer": true
+        },
+        {
+          "name": "migrator_marker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  77,
+                  73,
+                  71,
+                  82,
+                  65,
+                  84,
+                  79,
+                  82
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "whitelisted_migrator_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_owner",
+          "signer": true
+        },
+        {
+          "name": "uncx_authority_acc",
+          "docs": [
+            "CHECK : `its a pda account, checked via its seeds`"
+          ]
+        },
+        {
+          "name": "uncx_lock_lp_vault_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  112,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "migrator_token_lp_account",
+          "writable": true
+        },
+        {
+          "name": "user_info_acc",
+          "writable": true,
+          "optional": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_info_lp_tracker_acc",
+          "writable": true,
+          "optional": true
+        }
+      ],
+      "args": [
+        {
+          "name": "locker_id",
+          "type": "u64"
+        },
+        {
+          "name": "migrate_amount",
+          "type": "u64"
+        },
+        {
+          "name": "migration_option",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "relock_lp",
+      "discriminator": [
+        161,
+        107,
+        182,
+        91,
+        7,
+        181,
+        142,
+        191
+      ],
+      "accounts": [
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_owner",
+          "signer": true
+        },
+        {
+          "name": "uncx_authority_acc",
+          "docs": [
+            "CHECK : `its a pda account, checked via its seeds`"
+          ]
+        },
+        {
+          "name": "uncx_lock_lp_vault_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  112,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dev_lp_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "config_account.config.dev_addr",
+                "account": "ConfigurationAccount"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.lp_mint",
+                "account": "TokenLock"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "config_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "lock_id",
+          "type": "u64"
+        },
+        {
+          "name": "new_unlock_date",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "remove_migrator",
+      "discriminator": [
+        208,
+        240,
+        13,
+        57,
+        197,
+        206,
+        118,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "migrator_marker_acc",
+          "docs": [
+            "user to whitelist"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  77,
+                  73,
+                  71,
+                  82,
+                  65,
+                  84,
+                  79,
+                  82
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "migrator_pda_acc"
+              }
+            ]
+          }
+        },
+        {
+          "name": "receiver",
+          "docs": [
+            "receiver account to to send lamports to"
+          ],
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "migrator_pda_acc",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "remove_whitelist",
+      "discriminator": [
+        148,
+        244,
+        73,
+        234,
+        131,
+        55,
+        247,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "user_whitelist_pda_acc",
+          "docs": [
+            "user to whitelist"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  45,
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "whitelist_address"
+              }
+            ]
+          }
+        },
+        {
+          "name": "receiver",
+          "docs": [
+            "receiver account to to send lamports to"
+          ],
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "whitelist_address",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_dev",
+      "discriminator": [
+        15,
+        184,
+        173,
+        46,
+        126,
+        164,
+        22,
+        131
+      ],
+      "accounts": [
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_dev_addr",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_new_admin",
+      "discriminator": [
+        62,
+        156,
+        4,
+        148,
+        79,
+        162,
+        148,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin_addr",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_new_fees_config",
+      "discriminator": [
+        24,
+        42,
+        115,
+        170,
+        20,
+        212,
+        53,
+        161
+      ],
+      "accounts": [
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_fees_config",
+          "type": {
+            "defined": {
+              "name": "FeesConfig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_referral_token_hold_balance",
+      "discriminator": [
+        238,
+        88,
+        180,
+        175,
+        83,
+        5,
+        202,
+        169
+      ],
+      "accounts": [
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_referral_token_hold_balance",
+          "type": "u64"
+        },
+        {
+          "name": "new_referral_token",
+          "type": {
+            "option": "pubkey"
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_secondary_token",
+      "discriminator": [
+        110,
+        68,
+        166,
+        102,
+        197,
+        150,
+        116,
+        201
+      ],
+      "accounts": [
+        {
+          "name": "admin_sign",
+          "docs": [
+            "Signer of the Admin Key"
+          ],
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "docs": [
+            "Configuration Account PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_secondary_token",
+          "type": {
+            "option": "pubkey"
+          }
+        }
+      ]
+    },
+    {
+      "name": "split_relock_lp",
+      "discriminator": [
+        157,
+        38,
+        254,
+        148,
+        106,
+        102,
+        81,
+        140
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "old_locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "new_lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config_account.config.next_locker_unique_id",
+                "account": "ConfigurationAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_owner",
+          "signer": true
+        },
+        {
+          "name": "dev_wallet",
+          "docs": [
+            "CHECK : address constraint checked"
+          ],
+          "writable": true
+        },
+        {
+          "name": "config_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "user_info_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_info_lp_tracker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  112,
+                  95,
+                  116,
+                  114,
+                  97,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              },
+              {
+                "kind": "account",
+                "path": "user_info_acc"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "old_locker_id",
+          "type": "u64"
+        },
+        {
+          "name": "new_locker_locked_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "transfer_lock_ownership",
+      "discriminator": [
+        193,
+        13,
+        131,
+        134,
+        95,
+        25,
+        229,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "old_user_info_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "old_user_info_lp_tracker_acc",
+          "writable": true
+        },
+        {
+          "name": "new_user_info_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "new_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "new_user_info_lp_tracker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  112,
+                  95,
+                  116,
+                  114,
+                  97,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "new_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              },
+              {
+                "kind": "account",
+                "path": "new_user_info_acc"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "locker_id",
+          "type": "u64"
+        },
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_lp",
+      "discriminator": [
+        225,
+        221,
+        45,
+        211,
+        49,
+        60,
+        51,
+        163
+      ],
+      "accounts": [
+        {
+          "name": "lp_locker_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  111,
+                  99,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "locker_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_owner",
+          "signer": true
+        },
+        {
+          "name": "uncx_authority_acc",
+          "docs": [
+            "CHECK : `its a pda account, checked via its seeds`"
+          ]
+        },
+        {
+          "name": "uncx_lock_lp_vault_acc",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  99,
+                  120,
+                  95,
+                  108,
+                  112,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "user_lp_token_acc",
+          "writable": true
+        },
+        {
+          "name": "user_info_acc",
+          "writable": true,
+          "optional": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_owner"
+              },
+              {
+                "kind": "account",
+                "path": "lp_locker_acc.amm_id",
+                "account": "TokenLock"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_info_lp_tracker_acc",
+          "writable": true,
+          "optional": true
+        }
+      ],
+      "args": [
+        {
+          "name": "locker_id",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BlackListedCountries",
+      "discriminator": [
+        200,
+        121,
+        189,
+        230,
+        183,
+        138,
+        164,
+        242
+      ]
+    },
+    {
+      "name": "ConfigurationAccount",
+      "discriminator": [
+        176,
+        105,
+        166,
+        116,
+        210,
+        50,
+        241,
+        205
+      ]
+    },
+    {
+      "name": "GlobalLpMintMarker",
+      "discriminator": [
+        194,
+        213,
+        136,
+        226,
+        74,
+        126,
+        123,
+        178
+      ]
+    },
+    {
+      "name": "Migrator",
+      "discriminator": [
+        74,
+        71,
+        185,
+        52,
+        75,
+        186,
+        114,
+        78
+      ]
+    },
+    {
+      "name": "TokenLock",
+      "discriminator": [
+        73,
+        228,
+        144,
+        241,
+        154,
+        44,
+        93,
+        238
+      ]
+    },
+    {
+      "name": "UserInfoAccount",
+      "discriminator": [
+        218,
+        126,
+        115,
+        208,
+        144,
+        223,
+        187,
+        184
+      ]
+    },
+    {
+      "name": "UserLpInfoAccount",
+      "discriminator": [
+        173,
+        20,
+        27,
+        69,
+        202,
+        160,
+        206,
+        196
+      ]
+    },
+    {
+      "name": "Whitelisted",
+      "discriminator": [
+        126,
+        222,
+        208,
+        240,
+        158,
+        35,
+        208,
+        206
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "BlackListedCountries",
+      "docs": [
+        "Seeds : [b\"blacklisted_countries\"]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "blacklisted_countries",
+            "type": "bytes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "fee_config",
+            "type": {
+              "defined": {
+                "name": "FeesConfig"
+              }
+            }
+          },
+          {
+            "name": "min_referral_balance",
+            "docs": [
+              "balance the referrer must hold to qualify as a referrer aka referralHold"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "referral_token_address",
+            "docs": [
+              "token the refferer must hold to qualify as a referrer"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "secondary_token_address",
+            "docs": [
+              "secondary token which we provide a discount on if the user",
+              "agrees to burning it"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "admin_key",
+            "docs": [
+              "Stores the admin public key"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "dev_addr",
+            "type": "pubkey"
+          },
+          {
+            "name": "next_locker_unique_id",
+            "docs": [
+              "Sores tthe next locker id"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfigurationAccount",
+      "docs": [
+        "Lp Locker Conifguration account, EVM Fee Data, Nonce and admin is combined into one account",
+        "In solana it is an anti-pattern to store single values in different accounts as there is a",
+        "limitation on tx size and each account takes 32 bytes reducing composability with other",
+        "instructions in a (legacy)transaction Note : referral can be anyone who holds the referral token",
+        "with about min referral token balance Account 1: seeds = [b\"config_account\"]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "config",
+            "type": {
+              "defined": {
+                "name": "Config"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "uncx_authority_pda_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "uncx_authority_bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeePaymentMethod",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Native"
+          },
+          {
+            "name": "NonNative"
+          },
+          {
+            "name": "Whitelisted"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeesConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "native_fee",
+            "type": "u64"
+          },
+          {
+            "name": "secondary_token_fee",
+            "docs": [
+              "fee charged via alternative means, if paid via a secondary token"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "secondary_token_discount",
+            "docs": [
+              "discount on liquidity fee for burning secondaryToken"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "liquidity_fee",
+            "docs": [
+              "fee on raydiumv2 style liquidity tokens"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "referral_share_percent",
+            "docs": [
+              "*use bps, 10000 = 100%",
+              "fee for referrals"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "referral_discount",
+            "docs": [
+              "discount on flatrate fees for using a valid referral address"
+            ],
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GlobalLpMintMarker",
+      "docs": [
+        "`GlobalLpMintMarker` discriminator is the filter - Once per unique AMM",
+        "seeds : [amm_address,\"global_lp_tracker\"]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Migrator",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnIncrementLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "entity",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_remaining_in_lock",
+            "type": "u64"
+          },
+          {
+            "name": "amount_added",
+            "type": "u64"
+          },
+          {
+            "name": "liquidity_fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnMigrate",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_remaining_in_lock",
+            "type": "u64"
+          },
+          {
+            "name": "amount_migrated",
+            "type": "u64"
+          },
+          {
+            "name": "migration_option",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnNewLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "lock_date",
+            "type": "i64"
+          },
+          {
+            "name": "unlock_date",
+            "type": "i64"
+          },
+          {
+            "name": "country_code",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnRelock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_remaining_in_lock",
+            "type": "u64"
+          },
+          {
+            "name": "liquidity_fee",
+            "type": "u64"
+          },
+          {
+            "name": "unlock_date",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnSplitLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_remaining_in_old_lock",
+            "type": "u64"
+          },
+          {
+            "name": "amount_removed",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnTransferLockOwnership",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "old_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnWithdraw",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lock_id",
+            "type": "u64"
+          },
+          {
+            "name": "lp_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_remaining_in_lock",
+            "type": "u64"
+          },
+          {
+            "name": "amount_removed",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "amm_id",
+            "docs": [
+              "The raydium amm pool id/amm pair lp mint address"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "lp_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "lock_global_id",
+            "docs": [
+              "incremental global locker_count value."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "lock_date",
+            "docs": [
+              "the data the token was locked at ,stored in unix timestamp"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "unlock_date",
+            "docs": [
+              "the data the token is unlocked at ,stored in unix timestamp"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "country_code",
+            "docs": [
+              "the country code of the locker/business"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "initial_lock_amount",
+            "type": "u64"
+          },
+          {
+            "name": "current_locked_amount",
+            "type": "u64"
+          },
+          {
+            "name": "lock_owner",
+            "docs": [
+              "who can withdraw the lp from the lock after specified duration is complete aka owner"
+            ],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserInfoAccount",
+      "docs": [
+        "Accounts"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "lp_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "lp_locker_count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserLpInfoAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "associated_locker_ids",
+            "type": {
+              "vec": "u64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Whitelisted",
+      "docs": [
+        "Whitelist account, derived via [\"uncx-whitelist\",\"user address\"],Existence of a signer",
+        "with whose address we will derive a whitelist account and check if its initialized."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

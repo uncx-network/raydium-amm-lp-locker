@@ -1,0 +1,13 @@
+
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+.vscode/aaran.weaudit
+programs/uncx-solana-lp-locker/src/evm_v2_locker_indexes.txt
+programs/uncx-solana-lp-locker/src/pda.txt
+programs/uncx-solana-lp-locker/src/lock_account.txt
+docker-target
